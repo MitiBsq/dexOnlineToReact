@@ -4,10 +4,6 @@ import SearchPage from './components/SearchPage';
 import ListPage from './components/ListPage';
 import Header from './components/Header';
 
-/* localStorage.clear()   
-localStorage.setItem('MANCARE', 'FOOD');
-localStorage.setItem('TEST', 'REZULTAT'); */
-
 function App() {
   //Using useState to save the values that needs to re render after modifying data
   const [regWords, setRegWords] = useState({});
