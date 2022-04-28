@@ -13,7 +13,7 @@ export default function EditWordModel(props) {
     }
 
     function handleClick() {
-        if (newValue != 0) {
+        if (newValue.trim() !== "") {
             props.editWord(props.selectedWord.toUpperCase(), newValue.trim().toUpperCase());
             props.setCheck(false);
         }

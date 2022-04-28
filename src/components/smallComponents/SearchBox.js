@@ -17,7 +17,7 @@ export default function SearchBox(props) {
         //Eliminating the default form submit
         e.preventDefault();
         //If there is no word inserted in the input or just pressed 'space'
-        if (searchBox == 0) {
+        if (searchBox.trim() === "") {
             setSearchBox('');
             setWordFound(false);
         } else {

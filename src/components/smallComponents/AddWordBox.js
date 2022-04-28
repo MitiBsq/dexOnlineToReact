@@ -14,8 +14,8 @@ export default function AddWordBox(props) {
   }
   //Same as the searchBox(If we cant search for empty words, we cant add)
   function addWord() {
-    if (newWord != 0 && newWordDeff != 0) {
-      props.addWord(newWord.toUpperCase(), newWordDeff.toUpperCase());
+    if (newWord.trim() !== '' && newWordDeff.trim() !== '') {
+      props.addWord(newWord.trim().toUpperCase(), newWordDeff.trim().toUpperCase());
     }
   }
 
