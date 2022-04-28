@@ -1,12 +1,13 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 
 export default function SearchBox(props) {
     const [searchBox, setSearchBox] = useState('');
     const [wordFound, setWordFound] = useState([]);
+
+    //Preventing the user to type only numbers
     function handleChange(e) {
         const { value } = e.target;
         if (value > 0 || value < 0 || value === '0') {
-
         } else {
             setSearchBox(value);
         }
@@ -18,17 +19,26 @@ export default function SearchBox(props) {
         //If there is no word inserted in the input or just pressed 'space'
         if (searchBox == 0) {
             setSearchBox('');
-            setWordFound(false)
+            setWordFound(false);
         } else {
-            if (props.storageList[searchBox.toUpperCase()]) {
-                setWordFound([searchBox[0].toUpperCase() + searchBox.substring(1).toLowerCase(), props.storageList[searchBox.toUpperCase()][0] + props.storageList[searchBox.toUpperCase()].substring(1).toLowerCase()])
+            let searchedWord = searchBox.trim().toUpperCase();
+            //Verifying if the word is found in the "library"
+            if (props.storageList[searchedWord]) {
+                setWordFound([searchedWord[0] + searchedWord.substring(1).toLowerCase(), props.storageList[searchedWord][0] + props.storageList[searchedWord].substring(1).toLowerCase()]);
             } else {
                 //If the searched word was not found 
                 setWordFound([]);
-                props.setPage('Page2');
+                //The website will send you to the next Interface where you have the whole list of words
+                if (props.theClass === 'searchPage') {
+                    props.setPage('Page2');
+                }
             }
         }
     }
+
+    //Just some styling for the founded word
+    const wordFoundStyle = wordFound.length > 0 ? { display: 'block' } : { display: 'none' }
+    const wordFoundMsg = `${wordFound[0]} = ${wordFound[1]}`
 
     return (
         <form className={props.theClass}>
@@ -41,17 +51,12 @@ export default function SearchBox(props) {
                 onChange={handleChange}
                 className={props.theClass === 'searchPage' ? 'form-control-lg' : 'form-control formWidth'}
             />
-            <button 
-            className={props.theClass === 'searchPage' ? 'btn btn-primary btn-lg' : 'btn btn-primary'} 
-            onClick={searchValue}
+            <button
+                className={props.theClass === 'searchPage' ? 'btn btn-primary btn-lg' : 'btn btn-primary'}
+                onClick={searchValue}
             >Search
             </button>
-            {props.theClass === 'searchPage' && <div style={wordFound.length > 0 ? { display: 'block' } : { display: 'none' }}>{wordFound[0]} = {wordFound[1]}</div>}
+            <div style={wordFoundStyle}>{wordFoundMsg}</div>
         </form>
-    )
+    );
 }
-
-
-//Sa fac sa pot da search din urm pagina si sa imi dea highlight la cuvant in lista
-//Sa fac sa adaug cuvant nou in lista
-//Sa mai curat la functii
